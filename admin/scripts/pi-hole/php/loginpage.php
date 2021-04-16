@@ -37,20 +37,14 @@
         </div>
         <br>
         <div class="row">
-          <div class="col-xs-8 hidden-xs hidden-sm">
-            <ul>
-              <li><kbd>Return</kbd> &rarr; Log in and go to requested page (<?php echo $scriptname; ?>)</li>
-              <li><kbd>Ctrl</kbd>+<kbd>Return</kbd> &rarr; Log in and go to Settings page</li>
-            </ul>
-          </div>
-          <div class="col-xs-12 col-md-4">
-            <div>
-              <input type="checkbox" id="logincookie" name="persistentlogin">
-              <label for="logincookie">Remember me for 7 days</label>
-            </div>
-          </div>
+			<div style="text-align: center;">
+				<div class="col-xs-12 col-md-12">
+					<div>
+					<input type="checkbox" id="logincookie" name="persistentlogin">
+					<label for="logincookie">Remember me for 7 days</label>
+				</div><br />
+			</div>
         </div>
-        <br>
         <div class="row">
           <div class="col-xs-12">
             <div class="box box-<?php if (!$wrongpassword) { ?>info collapsed-box<?php } else { ?>danger<?php }?>">

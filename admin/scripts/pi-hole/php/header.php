@@ -171,7 +171,7 @@
     <meta http-equiv="cache-control" content="max-age=60,private">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pi-hole<?php echo $hostname ? " - " . $hostname : "" ?></title>
+    <title>Aumm DNS<?php echo $hostname ? " - " . $hostname : "" ?></title>
 
     <link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -213,6 +213,7 @@
     <script src="scripts/vendor/moment.min.js?v=<?=$cacheVer?>"></script>
     <script src="scripts/vendor/Chart.min.js?v=<?=$cacheVer?>"></script>
     <script src="style/vendor/font-awesome/js/all.min.js?v=<?=$cacheVer?>"></script>
+	<script src="scripts/pi-hole/js/toTop.js"></script>
 </head>
 <body class="hold-transition sidebar-mini <?php if($boxedlayout){ ?>layout-boxed<?php } ?>">
 <noscript>
@@ -240,7 +241,7 @@ if($auth) {
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">P<strong>h</strong></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg">Pi-<strong>hole</strong></span>
+            <span class="logo-lg">Aumm <strong>DNS</strong></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -259,14 +260,13 @@ if($auth) {
                     </li>
                     <li<?php echo !$hostname ? ' class="hidden"' : "" ?>>
                         <p class="navbar-text">
-                            <span class="hidden-xs hidden-sm">hostname:</span>
-                            <code><?php echo $hostname; ?></code>
+                            <?php echo $hostname; ?>
                         </p>
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <img src="img/logo.svg" class="user-image" alt="Pi-hole logo" style="border-radius: 0" width="25" height="25">
-                            <span class="hidden-xs">Pi-hole</span>
+                            <span class="hidden-xs">Aumm DNS</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -274,33 +274,15 @@ if($auth) {
                                 <img src="img/logo.svg" alt="Pi-hole Logo" style="border: 0" width="90" height="90">
                                 <p>
                                     Open Source Ad Blocker
-                                    <small>Designed For Raspberry Pi</small>
+                                    <small>Designed For Debian Deploy</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
                             <li class="user-body">
                                 <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a class="btn-link" href="https://github.com/pi-hole" rel="noopener" target="_blank">GitHub</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a class="btn-link" href="https://pi-hole.net/" rel="noopener" target="_blank">Website</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a class="btn-link" href="https://github.com/pi-hole/pi-hole/releases" rel="noopener" target="_blank">Updates</a>
-                                    </div>
                                     <div id="sessiontimer" class="col-xs-12 text-center">
                                         <strong>Session is valid for <span id="sessiontimercounter"><?php if($auth && strlen($pwhash) > 0){echo $maxlifetime;}else{echo "0";} ?></span></strong>
                                     </div>
-                                </div>
-                            </li>
-                            <!-- Menu Footer -->
-                            <li class="user-footer">
-                                <!-- PayPal -->
-                                <div class="text-center">
-                                    <a href="https://pi-hole.net/donate/" rel="noopener" target="_blank">
-                                        <img src="img/donate.gif" alt="Donate" width="147" height="47">
-                                    </a>
                                 </div>
                             </li>
                         </ul>
@@ -643,18 +625,6 @@ if($auth) {
                     </a>
                 </li>
                 <?php } ?>
-                <!-- Donate -->
-                <li>
-                    <a href="https://pi-hole.net/donate/" rel="noopener" target="_blank">
-                        <i class="fab fa-fw fa-paypal"></i> <span>Donate</span>
-                    </a>
-                </li>
-                 <!-- Docs -->
-                 <li>
-                    <a href="https://docs.pi-hole.net/" rel="noopener" target="_blank">
-                        <i class="fa fa-fw fa-question-circle"></i> <span>Documentation</span>
-                    </a>
-                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
