@@ -20,8 +20,6 @@ Pi-hole[®](https://pi-hole.net/trademark-rules-and-brand-guidelines/)'s Web int
 
 ---
 
-<img src="https://pi-hole.github.io/graphics/Badges/browserstack-badge.png" height="80"><br>
-
 # Installation
 
 The Web interface is enabled by default when you install Pi-hole.
