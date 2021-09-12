@@ -50,10 +50,10 @@ function setHeader($type = "x") {
 }
 
 // Determine block page type
-if ($serverName === "pi.holle"
+if ($serverName === "pi.hole"
     || (!empty($_SERVER["VIRTUAL_HOST"]) && $serverName === $_SERVER["VIRTUAL_HOST"])) {
     // Redirect to Web Interface
-    exit(header("Location: /admin/"));
+    exit(header("Location: /admin"));
 } elseif (filter_var($serverName, FILTER_VALIDATE_IP) || in_array($serverName, $authorizedHosts)) {
     // When directly browsing via IP or authorized hostname
     // Render splash/landing page based off presence of $landPage file
@@ -72,15 +72,15 @@ if ($serverName === "pi.holle"
         <head>
             <meta charset='utf-8'>
             $viewPort
-            <title>Aumm DNS ● $serverName</title>
-            <link rel='stylesheet' href='pihole/blockingpage.css'>
-            <link rel='shortcut icon' href='admin/img/favicons/favicon.ico' type='image/x-icon'>
+            <title>● $serverName</title>
+            <link rel='stylesheet' href='/pihole/blockingpage.css'>
+            <link rel='shortcut icon' href='/admin/img/favicons/favicon.ico' type='image/x-icon'>
         </head>
         <body id='splashpage'>
             <div id="pihole_card">
-              <img src='admin/img/logo.svg' alt='Pi-hole logo' id="pihole_logo_splash" />
-              <p>Aumm <strong>DNS</strong> - Internet ad blocking system</p>
-              <a href='/admin/'>Did you mean to go to the admin panel?</a>
+              <img src='/admin/img/logo.svg' alt='Pi-hole logo' id="pihole_logo_splash" />
+              <p>Pi-<strong>hole</strong>: Your black hole for Internet advertisements</p>
+              <a href='/admin'>Did you mean to go to the admin panel?</a>
             </div>
         </body>
     </html>
@@ -266,7 +266,7 @@ setHeader();
   <meta http-equiv="x-dns-prefetch-control" content="off">
   <link rel="stylesheet" href="pihole/blockingpage.css">
   <link rel="shortcut icon" href="admin/img/favicons/favicon.ico" type="image/x-icon">
-  <title>Aumm DNS ● <?=$serverName ?></title>
+  <title>● <?=$serverName ?></title>
   <script src="admin/scripts/vendor/jquery.min.js"></script>
   <script>
     window.onload = function () {
