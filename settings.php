@@ -196,7 +196,7 @@ if (isset($setupVars["API_PRIVACY_MODE"])) {
 
 <?php
 if (isset($_GET['tab']) && in_array($_GET['tab'], array("sysadmin", "dns", "piholedhcp", "api", "privacy", "teleporter"))) {
-	$tab = $_GET['tab'];
+    $tab = $_GET['tab'];
 } else {
     $tab = "sysadmin";
 }
@@ -882,7 +882,7 @@ if (isset($_GET['tab']) && in_array($_GET['tab'], array("sysadmin", "dns", "piho
                                             <div class="col-lg-12">
                                                 <div>
                                                     <input type="checkbox" name="DNSrequiresFQDN" id="DNSrequiresFQDN" title="domain-needed" <?php if ($DNSrequiresFQDN){ ?>checked<?php } ?>>
-                                                    <label for="DNSrequiresFQDN"><strong>Never forward non-FQDNs</strong></label>
+                                                    <label for="DNSrequiresFQDN"><strong>Never forward non-FQDN <code>A</code> and <code>AAAA</code> queries</strong></label>
                                                     <p>When there is a Pi-hole domain set and this box is
                                                     ticked, this asks FTL that this domain is purely
                                                     local and FTL may answer queries from <code>/etc/hosts</code> or DHCP leases
@@ -1169,6 +1169,14 @@ if (isset($_GET['tab']) && in_array($_GET['tab'], array("sysadmin", "dns", "piho
                                             <div>
                                                 <input type="checkbox" name="bargraphs" id="bargraphs" value="yes">
                                                 <label for="bargraphs"><strong>Use new Bar charts on dashboard</strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <input type="checkbox" name="colorfulQueryLog" id="colorfulQueryLog" value="no">
+                                                <label for="colorfulQueryLog"><strong>Colorful Query Log</strong></label>
                                             </div>
                                         </div>
                                     </div>
