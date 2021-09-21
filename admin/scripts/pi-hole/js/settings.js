@@ -284,7 +284,6 @@ $(function () {
   });
 });
 
-// Colorful domains on the Query Log toggle
 $(function () {
   var colorfulQueryLog = $("#colorfulQueryLog");
   var chkboxData = localStorage.getItem("colorfulQueryLog_chkbox");

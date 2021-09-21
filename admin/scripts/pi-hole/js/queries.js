@@ -111,16 +111,16 @@ $(function () {
       // Query status
       var fieldtext,
         buttontext = "",
-        colorClass = "text-green",
+        blocked = false,
         isCNAME = false,
         regexLink = false;
 
       switch (data[4]) {
         case "1":
           fieldtext = "<span class='text-red'>Blocked (gravity)</span>";
-          colorClass = "text-red";
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-green"><i class="fas fa-check"></i> Whitelist</button>';
+          blocked = true;
           break;
         case "2":
           fieldtext =
@@ -142,8 +142,7 @@ $(function () {
           break;
         case "4":
           fieldtext = "<span class='text-red'>Blocked <br class='hidden-lg'>(regex blacklist)";
-          colorClass = "text-red";
-
+          blocked = true;
           if (data.length > 9 && data[9] > 0) {
             regexLink = true;
           }
@@ -153,30 +152,30 @@ $(function () {
           break;
         case "5":
           fieldtext = "<span class='text-red'>Blocked <br class='hidden-lg'>(exact blacklist)";
-          colorClass = "text-red";
+          blocked = true;
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-green"><i class="fas fa-check"></i> Whitelist</button>';
           break;
         case "6":
           fieldtext = "<span class='text-red'>Blocked <br class='hidden-lg'>(external, IP)";
-          colorClass = "text-red";
+          blocked = true;
           buttontext = "";
           break;
         case "7":
           fieldtext =
             "<span class='text-red'>Blocked <br class='hidden-lg'>(external, NULL)</span>";
-          colorClass = "text-red";
+          blocked = true;
           buttontext = "";
           break;
         case "8":
           fieldtext =
             "<span class='text-red'>Blocked <br class='hidden-lg'>(external, NXRA)</span>";
-          colorClass = "text-red";
+          blocked = true;
           buttontext = "";
           break;
         case "9":
           fieldtext = "<span class='text-red'>Blocked (gravity, CNAME)</span>";
-          colorClass = "text-red";
+          blocked = true;
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-green"><i class="fas fa-check"></i> Whitelist</button>';
           isCNAME = true;
@@ -184,7 +183,6 @@ $(function () {
         case "10":
           fieldtext =
             "<span class='text-red'>Blocked <br class='hidden-lg'>(regex blacklist, CNAME)</span>";
-          colorClass = "text-red";
 
           if (data.length > 9 && data[9] > 0) {
             regexLink = true;
@@ -197,7 +195,7 @@ $(function () {
         case "11":
           fieldtext =
             "<span class='text-red'>Blocked <br class='hidden-lg'>(exact blacklist, CNAME)</span>";
-          colorClass = "text-red";
+          blocked = true;
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-green"><i class="fas fa-check"></i> Whitelist</button>';
           isCNAME = true;
@@ -212,18 +210,16 @@ $(function () {
           fieldtext =
             "<span class='text-green'>OK</span> <br class='hidden-lg'>(already forwarded)" +
             dnssecStatus;
-          colorClass = "text-red";
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-red"><i class="fa fa-ban"></i> Blacklist</button>';
           break;
         case "15":
           fieldtext =
             "<span class='text-orange'>Blocked <br class='hidden-lg'>(database is busy)</span>";
-          colorClass = "text-orange";
+          blocked = true;
           break;
         default:
           fieldtext = "Unknown (" + parseInt(data[4], 10) + ")";
-          colorClass = false;
       }
 
       // Add EDE here if available and not included in dnssecStatus
@@ -234,8 +230,9 @@ $(function () {
 
       fieldtext += '<input type="hidden" name="id" value="' + parseInt(data[4], 10) + '">';
 
-      if (colorClass !== false && localStorage.getItem("colorfulQueryLog_chkbox") === "true") {
-        $(row).addClass(colorClass);
+      $(row).addClass(blocked === true ? "blocked-row" : "allowed-row");
+      if (localStorage.getItem("colorfulQueryLog_chkbox") === "true") {
+        $(row).addClass(blocked === true ? "text-red" : "text-green");
       }
 
       $("td:eq(4)", row).html(fieldtext);
@@ -327,9 +324,9 @@ $(function () {
       },
       { width: "4%" },
       { width: "36%", render: $.fn.dataTable.render.text() },
-      { width: "8%", type: "ip-address", render: $.fn.dataTable.render.text() },
+      { width: "5%", type: "ip-address", render: $.fn.dataTable.render.text() },
       { width: "14%", orderData: 4 },
-      { width: "8%", orderData: 5 },
+      { width: "15%", orderData: 5 },
       { width: "10%", orderData: 4 },
     ],
     lengthMenu: [
