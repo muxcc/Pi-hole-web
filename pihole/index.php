@@ -72,13 +72,15 @@ if ($serverName === "pi.hole"
         <head>
             <meta charset='utf-8'>
             $viewPort
-            <title>Aumm DNS ● $serverName</title>
+            <title>● $serverName</title>
             <link rel='stylesheet' href='/pihole/blockingpage.css'>
             <link rel='shortcut icon' href='/admin/img/favicons/favicon.ico' type='image/x-icon'>
         </head>
         <body id='splashpage'>
             <div id="pihole_card">
               <img src='/admin/img/logo.svg' alt='Pi-hole logo' id="pihole_logo_splash" />
+              <p>Pi-<strong>hole</strong>: Your black hole for Internet advertisements</p>
+              <a href='/admin'>Did you mean to go to the admin panel?</a>
             </div>
         </body>
     </html>

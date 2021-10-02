@@ -11,8 +11,8 @@
     require_once "scripts/pi-hole/php/FTL.php";
     require "scripts/pi-hole/php/theme.php";
     $scriptname = basename($_SERVER['SCRIPT_FILENAME']);
-    $hostname = gethostname() ? gethostname() : "";
-
+//    $hostname = gethostname() ? gethostname() : "";
+    $hostname = $_SERVER["SERVER_NAME"];
     check_cors();
     
     // Create cache busting version
@@ -171,7 +171,7 @@
     <meta http-equiv="cache-control" content="max-age=60,private">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aumm DNS<?php echo $hostname ? " - " . $hostname : "" ?></title>
+    <title>Aumm DNS</title>
 
     <link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">

@@ -4,7 +4,7 @@ var scrolltotop={
     //scrollto: Keyword (Integer, or "Scroll_to_Element_ID"). How far to scroll document up when control is clicked on (0=top).
     setting: {startline:500, scrollto: 0, scrollduration:300, fadeduration:[800, 100]},
     controlHTML: '<img src="img/scroll-top.png" />', //HTML for control, which is auto wrapped in DIV w/ ID="topcontrol"
-    controlattrs: {offsetx:175, offsety:80}, //offset of control relative to right/ bottom of window corner
+    controlattrs: {offsetx:180, offsety:80}, //offset of control relative to right/ bottom of window corner
     anchorkeyword: '#top', //Enter href value of HTML anchors on the page that should also act as "Scroll Up" links
  state: {isvisible:false, shouldvisible:false},
     scrollup:function(){
