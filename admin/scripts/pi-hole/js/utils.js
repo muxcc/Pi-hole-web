@@ -31,13 +31,23 @@ function unescapeHtml(text) {
     "&gt;": ">",
     "&quot;": '"',
     "&#039;": "'",
+    "&Uuml;": "Ü",
+    "&uuml;": "ü",
+    "&Auml;": "Ä",
+    "&auml;": "ä",
+    "&Ouml;": "Ö",
+    "&ouml;": "ö",
+    "&szlig;": "ß",
   };
 
   if (text === null) return null;
 
-  return text.replace(/&(?:amp|lt|gt|quot|#039);/g, function (m) {
-    return map[m];
-  });
+  return text.replace(
+    /&(?:amp|lt|gt|quot|#039|Uuml|uuml|Auml|auml|Ouml|ouml|szlig);/g,
+    function (m) {
+      return map[m];
+    }
+  );
 }
 
 // Helper function for converting Objects to Arrays after sorting the keys
@@ -327,6 +337,17 @@ function addFromQueryLog(domain, list) {
   });
 }
 
+// Helper functions to format the progress bars used on the Dashboard and Long-term Lists
+function addTD(content) {
+  return "<td>" + content + "</td> ";
+}
+
+function colorBar(percentage, total, cssClass) {
+  var title = percentage.toFixed(1) + "% of " + total;
+  var bar = '<div class="progress-bar ' + cssClass + '" style="width: ' + percentage + '%"></div>';
+  return '<div class="progress progress-sm" title="' + title + '"> ' + bar + " </div>";
+}
+
 window.utils = (function () {
   return {
     escapeHtml: escapeHtml,
@@ -347,5 +368,7 @@ window.utils = (function () {
     validateMAC: validateMAC,
     validateHostname: validateHostname,
     addFromQueryLog: addFromQueryLog,
+    addTD: addTD,
+    colorBar: colorBar,
   };
 })();

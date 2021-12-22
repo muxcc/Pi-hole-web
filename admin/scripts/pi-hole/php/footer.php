@@ -41,11 +41,12 @@
     <footer class="main-footer">
         <div class="row row-centered text-center">
             <div class="col-xs-12 col-sm-6">
-				<strong><a href="//aumm.ru" rel="noopener" target="_blank"><i class="fa fa-heart text-red"></i> Aumm</a></strong>
-			</div>
+            		<strong><a href="//aumm.ru" rel="noopener" target="_blank"><i class="fa fa-heart text-red"></i> Aumm</a></strong>
+		</div>
         </div>
 
     </footer>
+
 </div>
 <!-- ./wrapper -->
 <script src="scripts/pi-hole/js/footer.js?v=<?=$cacheVer?>"></script>

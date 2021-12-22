@@ -97,6 +97,12 @@ function initTable() {
       { data: "groups", searchable: false },
       { data: "name", width: "80px", orderable: false },
     ],
+    columnDefs: [
+      {
+        targets: "_all",
+        render: $.fn.dataTable.render.text(),
+      },
+    ],
     drawCallback: function () {
       $('button[id^="deleteClient_"]').on("click", deleteClient);
       // Remove visible dropdown to prevent orphaning
@@ -217,6 +223,7 @@ function initTable() {
       [10, 25, 50, 100, "All"],
     ],
     stateSave: true,
+    stateDuration: 0,
     stateSaveCallback: function (settings, data) {
       utils.stateSaveCallback("groups-clients-table", data);
     },
@@ -260,7 +267,7 @@ function initTable() {
 }
 
 function addClient() {
-  var ip = $("#select").val().trim();
+  var ip = utils.escapeHtml($("#select").val().trim());
   var comment = utils.escapeHtml($("#new_comment").val());
 
   utils.disableAll();
@@ -276,7 +283,7 @@ function addClient() {
   // - IPv4 address (with and without CIDR)
   // - IPv6 address (with and without CIDR)
   // - MAC address (in the form AA:BB:CC:DD:EE:FF)
-  // - host name (arbitrary form, we're only checking against some reserved charaters)
+  // - host name (arbitrary form, we're only checking against some reserved characters)
   if (utils.validateIPv4CIDR(ip) || utils.validateIPv6CIDR(ip) || utils.validateMAC(ip)) {
     // Convert input to upper case (important for MAC addresses)
     ip = ip.toUpperCase();
@@ -385,7 +392,7 @@ function editClient() {
 function deleteClient() {
   var tr = $(this).closest("tr");
   var id = tr.attr("data-id");
-  var ip = tr.find("#ip_" + id).text();
+  var ip = utils.escapeHtml(tr.find("#ip_" + id).text());
   var name = utils.escapeHtml(tr.find("#name_" + id).text());
 
   if (name.length > 0) {

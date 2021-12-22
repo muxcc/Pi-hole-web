@@ -31,9 +31,11 @@
                         <th>Data3</th>
                         <th>Data4</th>
                         <th>Data5</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                 </table>
+                <p>Note: If errors are shown, you can <a href="debug.php">generate a debug log</a>, which will do a thorough Pi-hole evaluation.</p>
             </div>
             <!-- /.box-body -->
         </div>

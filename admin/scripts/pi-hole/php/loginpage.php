@@ -27,8 +27,8 @@
     <div class="panel-body">
       <form action="" id="loginform" method="post">
         <div class="form-group has-feedback <?php if ($wrongpassword) { ?>has-error<?php } ?>">
-        <input type="password" id="loginpw" name="pw" class="form-control" placeholder="Password" autocomplete="current-password" autofocus>  
-	<span class="fa fa-key form-control-feedback"></span>
+          <input type="password" id="loginpw" name="pw" class="form-control" placeholder="Password" autocomplete="current-password" autofocus>
+          <span class="fa fa-key form-control-feedback"></span>
         </div>
         <div class="row">
           <div class="col-xs-12 col-md-12">
@@ -37,28 +37,32 @@
         </div>
         <br>
         <div class="row">
-			<div style="text-align: center;">
-				<div class="col-xs-12 col-md-12">
-					<div>
-					<input type="checkbox" id="logincookie" name="persistentlogin">
-					<label for="logincookie">Remember me for 7 days</label>
-				</div><br />
-			</div>
+	<div style="text-align: center;">
+          <div class="col-xs-12 col-md-12">
+            <div>
+              <input type="checkbox" id="logincookie" name="persistentlogin">
+              <label for="logincookie">Remember me for 7 days</label>
+            </div>
+          </div>
         </div>
+	</div>
+        <br>
         <div class="row">
           <div class="col-xs-12">
             <div class="box box-<?php if (!$wrongpassword) { ?>info collapsed-box<?php } else { ?>danger<?php }?>">
-              <div class="box-header with-border">
+              <div class="box-header with-border pointer no-user-select" data-widget="collapse">
                 <h3 class="box-title">Forgot password?</h3>
                 <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa <?php if ($wrongpassword) { ?>fa-minus<?php } else { ?>fa-plus<?php } ?>"></i>
+                  <button type="button" class="btn btn-box-tool"><i class="fa <?php if ($wrongpassword) { ?>fa-minus<?php } else { ?>fa-plus<?php } ?>"></i>
                   </button>
                 </div>
               </div>
               <div class="box-body">
-                After installing Pi-hole for the first time, a password is generated and displayed to the user. The
-                password cannot be retrieved later on, but it is possible to set a new password (or explicitly disable
-                the password by setting an empty password) using the command
+                <p>
+                  After installing Pi-hole for the first time, a password is generated and displayed to the user. The
+                  password cannot be retrieved later on, but it is possible to set a new password (or explicitly disable
+                  the password by setting an empty password) using the command
+                </p>
                 <pre>sudo pihole -a -p</pre>
               </div>
             </div>

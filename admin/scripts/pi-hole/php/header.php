@@ -11,10 +11,10 @@
     require_once "scripts/pi-hole/php/FTL.php";
     require "scripts/pi-hole/php/theme.php";
     $scriptname = basename($_SERVER['SCRIPT_FILENAME']);
-//    $hostname = gethostname() ? gethostname() : "";
-    $hostname = $_SERVER["SERVER_NAME"];
+    $hostname = gethostname() ? gethostname() : "";
+
     check_cors();
-    
+
     // Create cache busting version
     $cacheVer = filemtime(__FILE__);
 
@@ -171,7 +171,7 @@
     <meta http-equiv="cache-control" content="max-age=60,private">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Aumm DNS</title>
+    <title>Aumm DNS<?php echo $hostname ? " - " . $hostname : "" ?></title>
 
     <link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -187,6 +187,10 @@
     <meta name="theme-color" content="#272c30">
 <?php } elseif ($theme == "default-darker") { ?>
     <meta name="theme-color" content="#2e6786">
+<?php } elseif ($theme == "lcars") { ?>
+    <meta name="theme-color" content="#4488FF">
+    <link rel="stylesheet" href="style/vendor/fonts/ubuntu-mono/ubuntu-mono.css?v=<?=$cacheVer?>">
+    <link rel="stylesheet" href="style/vendor/fonts/antonio/antonio.css?v=<?=$cacheVer?>">
 <?php } ?>
 
 <?php if ($darkmode) { ?>
@@ -260,7 +264,7 @@ if($auth) {
                 <ul class="nav navbar-nav">
                     <li id="pihole-diagnosis" class="hidden">
                         <a href="messages.php">
-                            <i class="fa fa-exclamation-triangle"></i>
+                            <i class="fa fa-exclamation-triangle fa-2x icon-bounce"></i>
                             <span class="label label-warning" id="pihole-diagnosis-count"></span>
                         </a>
                     </li>
@@ -271,7 +275,7 @@ if($auth) {
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <img src="img/logo.svg" class="user-image" alt="Pi-hole logo" style="border-radius: 0" width="25" height="25">
+                            <img src="img/logo.svg" class="user-image" alt="Aumm logo" style="border-radius: 0" width="25" height="25">
                             <span class="hidden-xs">Aumm DNS</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -280,7 +284,7 @@ if($auth) {
                                 <img src="img/logo.svg" alt="Pi-hole Logo" style="border: 0" width="90" height="90">
                                 <p>
                                     Open Source Ad Blocker
-                                    <small>Designed For Debian Deploy</small>
+                                    <small>Designed For Aumm Inc.</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -592,10 +596,10 @@ if($auth) {
                 <!-- Local DNS Records -->
                 <li class="treeview <?php if(in_array($scriptname, array("dns_records.php", "cname_records.php"))){ ?>active<?php } ?>">
                   <a href="#">
-                    <i class="fa fa-fw fa-address-book"></i> <span>Local DNS</span>                    
+                    <i class="fa fa-fw fa-address-book"></i> <span>Local DNS</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
-                    </span>               
+                    </span>
                   </a>
                   <ul class="treeview-menu">
                     <li<?php if($scriptname === "dns_records.php"){ ?> class="active"<?php } ?>>

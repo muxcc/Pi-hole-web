@@ -137,8 +137,12 @@ function initCheckboxRadioStyle() {
 
   function applyCheckboxRadioStyle(style) {
     boxsheet.attr("href", getCheckboxURL(style));
-    // Get all radio/checkboxes for theming, with the exception of the two radio buttons on the custom disable timer
-    var sel = $("input[type='radio'],input[type='checkbox']").not("#selSec").not("#selMin");
+    // Get all radio/checkboxes for theming, with the exception of the two radio buttons on the custom disable timer,
+    // as well as every element with an id that starts with "status_"
+    var sel = $("input[type='radio'],input[type='checkbox']")
+      .not("#selSec")
+      .not("#selMin")
+      .not("[id^=status_]");
     sel.parent().removeClass();
     sel.parent().addClass("icheck-" + style);
   }
@@ -287,17 +291,13 @@ if (sessionvalidity > 0) {
       seconds = "0" + seconds;
     }
 
-    if (totalseconds > 0) {
-      sessionTimerCounter.textContent = minutes + ":" + seconds;
-    } else {
-      sessionTimerCounter.textContent = "-- : --";
-    }
+    sessionTimerCounter.textContent = totalseconds > 0 ? minutes + ":" + seconds : "-- : --";
   }, 1000);
 } else {
   document.getElementById("sessiontimer").style.display = "none";
 }
 
-// Handle Strg + Enter button on Login page
+// Handle Ctrl + Enter button on Login page
 $(document).keypress(function (e) {
   if ((e.keyCode === 10 || e.keyCode === 13) && e.ctrlKey && $("#loginpw").is(":focus")) {
     $("#loginform").attr("action", "settings.php");

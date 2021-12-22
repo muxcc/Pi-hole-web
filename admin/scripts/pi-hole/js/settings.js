@@ -18,6 +18,51 @@ $(function () {
     $('input[name="AddIP"]').val(ip);
     $('input[name="AddMAC"]').val(mac);
   });
+
+  // prepare Teleporter Modal & iframe for operation
+  $("#teleporterModal").on("show.bs.modal", function () {
+    $('iframe[name="teleporter_iframe"]').removeAttr("style").contents().find("body").html("");
+    $(this).find("button").prop("disabled", true);
+    $(this).find(".overlay").show();
+  });
+
+  // set Teleporter iframe's font, enable Modal's button(s), ...
+  $('iframe[name="teleporter_iframe"]').on("load", function () {
+    var font = {
+      "font-family": $("pre").css("font-family"),
+      "font-size": $("pre").css("font-size"),
+      color: $("pre").css("color"),
+    };
+    var contents = $(this).contents();
+    contents.find("body").css(font);
+    $("#teleporterModal").find(".overlay").hide();
+    var BtnEls = $(this).parents(".modal-content").find("button").prop("disabled", false);
+
+    // force user to reload the page if necessary
+    var reloadEl = contents.find("span[data-forcereload]");
+    if (reloadEl.length > 0) {
+      var msg = "The page must now be reloaded to display the imported entries";
+      reloadEl.append(msg);
+      BtnEls.toggleClass("hidden")
+        .not(".hidden")
+        .on("click", function () {
+          // window.location.href avoids a browser warning for resending form data
+          window.location = window.location.href;
+        });
+    }
+
+    // expand iframe's height
+    var contentHeight = contents.find("html").height();
+    if (contentHeight > $(this).height()) {
+      $(this).height(contentHeight);
+    }
+  });
+
+  // display selected import file on button's adjacent textfield
+  $("#zip_file").change(function () {
+    var fileName = $(this)[0].files.length === 1 ? $(this)[0].files[0].name : "";
+    $("#zip_filename").val(fileName);
+  });
 });
 $(".confirm-poweroff").confirm({
   text: "Are you sure you want to send a poweroff command to your Pi-hole?",
@@ -124,7 +169,7 @@ $(".api-token").confirm({
   text: "Make sure that nobody else can scan this code around you. They will have full access to the API without having to know the password. Note that the generation of the QR code will take some time.",
   title: "Confirmation required",
   confirm: function () {
-    window.open("scripts/pi-hole/php/api_token.php");
+    $("#apiTokenModal").modal("show");
   },
   cancel: function () {
     // nothing to do
@@ -135,6 +180,18 @@ $(".api-token").confirm({
   confirmButtonClass: "btn-danger",
   cancelButtonClass: "btn-success",
   dialogClass: "modal-dialog",
+});
+
+$("#apiTokenModal").on("show.bs.modal", function () {
+  var bodyStyle = {
+    "font-family": $("body").css("font-family"),
+    "background-color": "white",
+  };
+  $('iframe[name="apiToken_iframe"]').contents().find("body").css(bodyStyle);
+  var qrCodeStyle = {
+    margin: "auto",
+  };
+  $('iframe[name="apiToken_iframe"]').contents().find("table").css(qrCodeStyle);
 });
 
 $("#DHCPchk").click(function () {
@@ -171,13 +228,20 @@ $(function () {
   if (document.getElementById("DHCPLeasesTable")) {
     leasetable = $("#DHCPLeasesTable").DataTable({
       dom: "<'row'<'col-sm-12'tr>><'row'<'col-sm-6'i><'col-sm-6'f>>",
-      columnDefs: [{ bSortable: false, orderable: false, targets: -1 }],
+      columnDefs: [
+        { bSortable: false, orderable: false, targets: -1 },
+        {
+          targets: [0, 1, 2],
+          render: $.fn.dataTable.render.text(),
+        },
+      ],
       paging: false,
       scrollCollapse: true,
       scrollY: "200px",
       scrollX: true,
       order: [[2, "asc"]],
       stateSave: true,
+      stateDuration: 0,
       stateSaveCallback: function (settings, data) {
         utils.stateSaveCallback("activeDhcpLeaseTable", data);
       },
@@ -190,7 +254,13 @@ $(function () {
   if (document.getElementById("DHCPStaticLeasesTable")) {
     staticleasetable = $("#DHCPStaticLeasesTable").DataTable({
       dom: "<'row'<'col-sm-12'tr>><'row'<'col-sm-12'i>>",
-      columnDefs: [{ bSortable: false, orderable: false, targets: -1 }],
+      columnDefs: [
+        { bSortable: false, orderable: false, targets: -1 },
+        {
+          targets: [0, 1, 2],
+          render: $.fn.dataTable.render.text(),
+        },
+      ],
       paging: false,
       scrollCollapse: true,
       scrollY: "200px",
@@ -258,10 +328,6 @@ $(function () {
 $(".nav-tabs a").on("shown.bs.tab", function (e) {
   var tab = e.target.hash.substring(1);
   window.history.pushState("", "", "?tab=" + tab);
-  if (tab === "piholedhcp") {
-    window.location.reload();
-  }
-
   window.scrollTo(0, 0);
 });
 
