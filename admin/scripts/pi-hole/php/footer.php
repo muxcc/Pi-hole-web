@@ -41,7 +41,7 @@
     <footer class="main-footer">
         <div class="row row-centered text-center">
             <div class="col-xs-12 col-sm-6">
-            		<strong><a href="//aumm.ru" rel="noopener" target="_blank"><i class="fa fa-heart text-red"></i> Aumm</a></strong>
+            		<strong><a href="//aumm.ru" rel="noopener" target="_blank">I&nbsp;<i class="fa fa-heart text-red"></i> Aumm</a></strong>
 		</div>
         </div>
 

@@ -367,7 +367,7 @@ $(function () {
     colorfulQueryLog.prop("checked", chkboxData === "true");
   } else {
     // Initialize checkbox
-    colorfulQueryLog.prop("checked", false);
+    colorfulQueryLog.prop("checked", true);
     localStorage.setItem("colorfulQueryLog_chkbox", true);
   }
 
