@@ -388,12 +388,12 @@ $(function () {
 
   if (chkboxData !== null) {
     // Restore checkbox state
-    colorfulQueryLog.prop("checked", chkboxData === "true");
+    colorfulQueryLog.prop("checked", chkboxData === "false");
   } else {
     // Initialize checkbox
-    colorfulQueryLog.prop("checked", false);
+    colorfulQueryLog.prop("checked", true);
     if (localStorage) {
-      localStorage.setItem("colorfulQueryLog_chkbox", false);
+      localStorage.setItem("colorfulQueryLog_chkbox", true);
     }
   }
 
