@@ -393,7 +393,7 @@ $(function () {
     // Initialize checkbox
     colorfulQueryLog.prop("checked", false);
     if (localStorage) {
-      localStorage.setItem("colorfulQueryLog_chkbox", true);
+      localStorage.setItem("colorfulQueryLog_chkbox", false);
     }
   }
 

@@ -142,7 +142,7 @@ $(function () {
     order: [[0, "asc"]],
     columns: [
       { data: "id", visible: false },
-      { data: "timestamp", width: "15%", render: renderTimestamp },
+      { data: "timestamp", width: "14%", render: renderTimestamp },
       { data: "type", width: "8%" },
       { data: "message", orderable: false, render: renderMessage },
       { data: "blob1", visible: false },
