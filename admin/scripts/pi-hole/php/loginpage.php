@@ -14,8 +14,6 @@
       </div>
       <br>
 
-      <div class="panel-title text-center"><span class="logo-lg" style="font-size: 25px;">Pi-<b>hole</b></span></div>
-      <p class="login-box-msg">Sign in to start your session</p>
       <div id="cookieInfo" class="panel-title text-center text-red" style="font-size: 150%" hidden>Verify that cookies are allowed for <code><?php echo $_SERVER['HTTP_HOST']; ?></code></div>
       <?php if ($wrongpassword) { ?>
         <div class="form-group has-error login-box-msg">
@@ -38,10 +36,6 @@
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary form-control"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;&nbsp;Log in</button>
-        </div>
-        <div class="box login-help hidden-xs">
-          <p><kbd>Return</kbd> &#10140; Log in and go to requested page (<?php echo $scriptname; ?>)</p>
-          <p><kbd>Ctrl</kbd> + <kbd>Return</kbd> &#10140; Log in and go to Settings page</p>
         </div>
 
         <div class="row">
