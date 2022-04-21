@@ -146,7 +146,7 @@ $(function () {
     columns: [
       { data: "id", visible: false },
       { data: null, visible: true, width: "15px" },
-      { data: "timestamp", width: "8%", render: renderTimestamp },
+      { data: "timestamp", width: "15%", render: renderTimestamp },
       { data: "type", width: "8%" },
       { data: "message", orderable: false, render: renderMessage },
       { data: "blob1", visible: false },

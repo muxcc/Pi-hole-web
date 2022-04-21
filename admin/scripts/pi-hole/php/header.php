@@ -517,7 +517,7 @@ if($auth) {
                 <li class="treeview<?php if (in_array($scriptname, array("messages.php", "gravity.php", "queryads.php", "auditlog.php", "taillog.php", "taillog-FTL.php", "debug.php", "network.php"))){ ?> active<?php } ?>">
                   <a href="#">
                       <i class="fa fa-fw menu-icon fa-tools"></i> <span>Tools</span>
-                      <span class="warning-count hidden"></span>
+                      <!--span class="warning-count hidden"></span-->
                       <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -527,7 +527,7 @@ if($auth) {
                     <li<?php if($scriptname === "messages.php"){ ?> class="active"<?php } ?>>
                         <a href="messages.php">
                             <i class="fa fa-fw menu-icon fa-file-medical-alt"></i> Pi-hole diagnosis
-                            <span class="pull-right-container warning-count hidden"></span>
+                            <!--span class="pull-right-container warning-count hidden"></span-->
                         </a>
                     </li>
                     <!-- Run gravity.sh -->
