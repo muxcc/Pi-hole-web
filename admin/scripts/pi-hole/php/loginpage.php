@@ -25,11 +25,11 @@
     <div class="panel-body">
       <form action="" id="loginform" method="post">
         <div class="form-group login-options has-feedback<?php if ($wrongpassword) { ?> has-error<?php } ?>">
-          <div class="pwd-field">
+          <div style="margin-right: 15px;" class="pwd-field">
             <input type="password" id="loginpw" name="pw" class="form-control" placeholder="Password" autocomplete="current-password" autofocus>
             <span class="fa fa-key form-control-feedback"></span>
           </div>
-          <div>
+          <div style="margin-left: auto; margin-right: auto;">
             <input type="checkbox" id="logincookie" name="persistentlogin">
             <label for="logincookie">Remember me for 7 days</label>
           </div>

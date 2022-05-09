@@ -161,7 +161,6 @@ if(strlen($showing) > 0)
                     </tr>
                 </tfoot>
             </table>
-            <p>Note: Queries for <code>pi.hole</code> and the hostname are never logged.</p>
         </div>
         <!-- /.box-body -->
       </div>
