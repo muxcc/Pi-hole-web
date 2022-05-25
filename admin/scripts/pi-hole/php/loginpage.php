@@ -29,7 +29,8 @@
             <input type="password" id="loginpw" name="pw" class="form-control" placeholder="Password" autocomplete="current-password" autofocus>
             <span class="fa fa-key form-control-feedback"></span>
           </div>
-          <div style="margin-left: auto; margin-right: auto;">
+          <!--div style="margin-left: auto; margin-right: auto;"-->
+          <div>
             <input type="checkbox" id="logincookie" name="persistentlogin">
             <label for="logincookie">Remember me for 7 days</label>
           </div>
