@@ -161,8 +161,7 @@ if(strlen($showing) > 0)
                     </tr>
                 </tfoot>
             </table>
-            <p>Note: Queries for <code>pi.hole</code> and the hostname are never logged.</p>
-            <br/><button type="button" id="resetButton" class="btn btn-default btn-sm text-red hidden">Clear filters</button>
+            <button type="button" id="resetButton" class="btn btn-default btn-sm text-red hidden">Clear filters</button>
         </div>
         <!-- /.box-body -->
       </div>
