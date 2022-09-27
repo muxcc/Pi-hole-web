@@ -388,7 +388,7 @@ $(function () {
 
   if (chkboxData !== null) {
     // Restore checkbox state
-    colorfulQueryLog.prop("checked", chkboxData === "false");
+    colorfulQueryLog.prop("checked", chkboxData === "true");
   } else {
     // Initialize checkbox
     colorfulQueryLog.prop("checked", true);

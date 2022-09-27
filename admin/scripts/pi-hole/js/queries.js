@@ -113,7 +113,12 @@ $(function () {
         buttontext = "",
         blocked = false,
         isCNAME = false,
-        regexLink = false;
+        DomainlistLink = false;
+
+      // accompanies Store domainlist IDs for blocked/permitted queries FTL PR 1409
+      if (data.length > 9 && Number.isInteger(parseInt(data[9], 10)) && data[9] > 0) {
+        DomainlistLink = true;
+      }
 
       switch (data[4]) {
         case "1":
@@ -141,10 +146,6 @@ $(function () {
         case "4":
           fieldtext = "<span class='text-red'>Blocked <br class='hidden-lg'>(regex blacklist)";
           blocked = true;
-          if (data.length > 9 && data[9] > 0) {
-            regexLink = true;
-          }
-
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-green"><i class="fas fa-check"></i> Whitelist</button>';
           break;
@@ -183,10 +184,6 @@ $(function () {
           fieldtext =
             "<span class='text-red'>Blocked <br class='hidden-lg'>(regex blacklist, CNAME)</span>";
           blocked = true;
-          if (data.length > 9 && data[9] > 0) {
-            regexLink = true;
-          }
-
           buttontext =
             '<button type="button" class="btn btn-default btn-sm text-green"><i class="fas fa-check"></i> Whitelist</button>';
           isCNAME = true;
@@ -235,15 +232,15 @@ $(function () {
       fieldtext += '<input type="hidden" name="id" value="' + parseInt(data[4], 10) + '">';
 
       $(row).addClass(blocked === true ? "blocked-row" : "allowed-row");
-      $(row).addClass(blocked === true ? "text-red" : "text-green");
+        $(row).addClass(blocked === true ? "text-red" : "text-green");
 
       $("td:eq(4)", row).html(fieldtext);
       $("td:eq(6)", row).html(buttontext);
 
-      if (regexLink) {
+      if (DomainlistLink) {
         $("td:eq(4)", row).hover(
           function () {
-            this.title = "Click to show matching regex filter";
+            this.title = "Click to show matching blacklist/whitelist domain";
             this.style.color = "#72afd2";
           },
           function () {
@@ -260,12 +257,7 @@ $(function () {
         $("td:eq(4)", row).addClass("text-underline pointer");
       }
 
-      // Substitute domain by "." if empty
       var domain = data[2];
-      if (domain.length === 0) {
-        domain = ".";
-      }
-
       if (isCNAME) {
         var CNAMEDomain = data[8];
         // Add domain in CNAME chain causing the query to have been blocked

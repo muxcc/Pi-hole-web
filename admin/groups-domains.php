@@ -1,24 +1,19 @@
-<?php /*
+<?php
+/*
 *    Pi-hole: A black hole for Internet advertisements
 *    (c) 2019 Pi-hole, LLC (https://pi-hole.net)
 *    Network-wide ad blocking via your own hardware.
 *
 *    This file is copyright under the latest version of the EUPL.
-*    Please see LICENSE file for your rights under this license. */
-    require "scripts/pi-hole/php/header.php";
-    $type = "all";
-    $pagetitle = "Domain";
-    $adjective = "";
-    if (isset($_GET['type']) && ($_GET['type'] === "white" || $_GET['type'] === "black")) {
-        $type = $_GET['type'];
-        $pagetitle = ucfirst($type)."list";
-        $adjective = $type."listed";
-    }
+*    Please see LICENSE file for your rights under this license.
+*/
+
+require 'scripts/pi-hole/php/header_authenticated.php';
 ?>
 
 <!-- Title -->
 <div class="page-header">
-    <h1><?php echo $pagetitle; ?> management</h1>
+    <h1>Domain management</h1>
 </div>
 
 <!-- Domain Input -->
@@ -27,7 +22,7 @@
         <div class="box" id="add-group">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    Add a new <?php echo $adjective; ?> domain or regex filter
+                    Add a new domain or regex filter
                 </h3>
             </div>
             <!-- /.box-header -->
@@ -62,7 +57,6 @@
                                     <div>
                                         <input type="checkbox" id="wildcard_checkbox">
                                         <label for="wildcard_checkbox"><strong>Add domain as wildcard</strong></label>
-                                        <p>Check this box if you want to involve all subdomains. The entered domain will be converted to a RegEx filter while adding.</p>
                                     </div>
                                 </div>
                             </div>
@@ -75,40 +69,22 @@
                                         <label for="new_regex">Regular Expression:</label>
                                         <input id="new_regex" type="text" class="form-control active" placeholder="RegEx to be added">
                                     </div>
-                                    <div class="form-group">
-                                        <strong>Hint:</strong> Need help to write a proper RegEx rule? Have a look at our online
-                                        <a href="https://docs.pi-hole.net/ftldns/regex/tutorial" rel="noopener" target="_blank">
-                                            regular expressions tutorial</a>.
-                                    </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                        <label for="new_regex_comment">Comment:</label>
-                                        <input id="new_regex_comment" type="text" class="form-control" placeholder="Description (optional)">
+                                    <label for="new_regex_comment">Comment:</label>
+                                    <input id="new_regex_comment" type="text" class="form-control" placeholder="Description (optional)">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <p><strong>Note:</strong><br>
-                       The domain or regex filter will be automatically assigned to the Default Group.<br>
-                       Other groups can optionally be assigned
-                       <?php if ($type === "white" || $type === "black") { ?>
-                       within <a href="groups-domains.php">Group Management > Domains</a>.
-                       <?php } else {?>
-                       in the list below (using <b>Group assignment</b>).
-                       <?php } ?></p>
-                </div>
                 <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with buttons">
-                    <?php if ( $type !== "white" ) { ?>
                     <div class="btn-group" role="group" aria-label="Third group">
                         <button type="button" class="btn btn-primary" id="add2black">Add to Blacklist</button>
                     </div>
-                    <?php } if ( $type !== "black" ) { ?>
                     <div class="btn-group" role="group" aria-label="Third group">
                         <button type="button" class="btn btn-primary" id="add2white">Add to Whitelist</button>
                     </div>
-                    <?php } ?>
                 </div>
             </div>
             <!-- /.box-body -->
@@ -123,23 +99,33 @@
         <div class="box" id="domains-list">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    List of <?php echo $adjective; ?> entries
+                    List of domains
                 </h3>
+                <div class="filter_types">
+                    <div class="line">
+                        <span><input type="checkbox" name="typ" value="0" id="typ0" checked><label for="typ0">Exact whitelist</label></span>
+                        <span><input type="checkbox" name="typ" value="2" id="typ2" checked><label for="typ2">Regex whitelist</label></span>
+                    </div>
+                    <div class="line">
+                        <span><input type="checkbox" name="typ" value="1" id="typ1" checked><label for="typ1">Exact blacklist</label></span>
+                        <span><input type="checkbox" name="typ" value="3" id="typ3" checked><label for="typ3">Regex blacklist</label></span>
+                    </div>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                 <table id="domainsTable" class="table table-striped table-bordered" width="100%">
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th></th>
-                        <th>Domain/RegEx</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Comment</th>
-                        <th>Group assignment</th>
-                        <th>&nbsp;</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th></th>
+                            <th>Domain/RegEx</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Comment</th>
+                            <th>Group assignment</th>
+                            <th>&nbsp;</th>
+                        </tr>
                     </thead>
                 </table>
                 <button type="button" id="resetButton" class="btn btn-default btn-sm text-red hidden">Reset sorting</button>
@@ -150,10 +136,10 @@
     </div>
 </div>
 
-<script src="scripts/vendor/bootstrap-select.min.js?v=<?=$cacheVer?>"></script>
-<script src="scripts/vendor/bootstrap-toggle.min.js?v=<?=$cacheVer?>"></script>
-<script src="scripts/pi-hole/js/groups-domains.js?v=<?=$cacheVer?>"></script>
+<script src="scripts/vendor/bootstrap-select.min.js?v=<?php echo $cacheVer; ?>"></script>
+<script src="scripts/vendor/bootstrap-toggle.min.js?v=<?php echo $cacheVer; ?>"></script>
+<script src="scripts/pi-hole/js/groups-domains.js?v=<?php echo $cacheVer; ?>"></script>
 
 <?php
-require "scripts/pi-hole/php/footer.php";
+require 'scripts/pi-hole/php/footer.php';
 ?>

@@ -19,7 +19,7 @@ function renderTimestamp(data, type) {
   return data;
 }
 
-function multline(input) {
+function multiline(input) {
   return input.split(",").join("\n");
 }
 
@@ -50,7 +50,7 @@ function renderMessage(data, type, row) {
         " groups (database IDs [" +
         row.blob3 +
         "]):<pre>" +
-        multline(row.blob2) +
+        multiline(row.blob2) +
         "</pre>" +
         "FTL chose the most recent entry <pre>" +
         row.blob4 +
@@ -126,6 +126,19 @@ function renderMessage(data, type, row) {
         "</pre>"
       );
 
+    case "ADLIST":
+      return (
+        '<a href="groups-adlists.php?adlistid=' +
+        parseInt(row.blob1, 10) +
+        '">' +
+        "Adlist with ID " +
+        parseInt(row.blob1, 10) +
+        "</a> was inaccessible during last gravity run." +
+        "<pre>" +
+        utils.escapeHtml(row.message) +
+        "</pre>"
+      );
+
     default:
       return "Unknown message type<pre>" + JSON.stringify(row) + "</pre>";
   }
@@ -146,7 +159,7 @@ $(function () {
     columns: [
       { data: "id", visible: false },
       { data: null, visible: true, width: "15px" },
-      { data: "timestamp", width: "15%", render: renderTimestamp },
+      { data: "timestamp", width: "8%", render: renderTimestamp },
       { data: "type", width: "8%" },
       { data: "message", orderable: false, render: renderMessage },
       { data: "blob1", visible: false },
