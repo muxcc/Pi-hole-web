@@ -314,28 +314,28 @@ function addFromQueryLog(domain, list) {
           // Failure
           alNetworkErr.hide();
           alCustomErr.html(response.message);
-          alFailure.fadeIn(1000);
+          alFailure.fadeIn(100);
           setTimeout(function () {
             alertModal.modal("hide");
-          }, 10000);
+          }, 100);
         } else {
           // Success
           alSuccess.children(alDomain).text(domain);
           alSuccess.children(alList).text(listtype);
-          alSuccess.fadeIn(1000);
+          alSuccess.fadeIn(100);
           setTimeout(function () {
             alertModal.modal("hide");
-          }, 2000);
+          }, 100);
         }
       },
       error: function () {
         // Network Error
         alProcessing.hide();
         alNetworkErr.show();
-        alFailure.fadeIn(1000);
+        alFailure.fadeIn(100);
         setTimeout(function () {
           alertModal.modal("hide");
-        }, 8000);
+        }, 100);
       },
     });
   });
