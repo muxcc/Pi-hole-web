@@ -9,7 +9,6 @@
 
 const DEFAULT_FTLCONFFILE = '/etc/pihole/pihole-FTL.conf';
 const DEFAULT_FTL_IP = '127.0.0.1';
-#const DEFAULT_FTL_IP = '10.10.10.88';
 const DEFAULT_FTL_PORT = 4711;
 
 function piholeFTLConfig($piholeFTLConfFile = DEFAULT_FTLCONFFILE, $force = false)

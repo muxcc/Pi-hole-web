@@ -198,11 +198,6 @@ if ($auth) {
                             <!-- <li class="user-body"></li> -->
                             <!-- Menu Footer -->
                             <li class="user-footer">
-                                <a class="btn-link" href="https://pi-hole.net/" rel="noopener" target="_blank">
-                                    <svg class="svg-inline--fa fa-fw menu-icon" style="height: 1.25em"><use xlink:href="img/pihole_icon.svg#pihole-svg-logo"/></svg>
-                                    Pi-hole Website
-                                </a>
-                                <hr>
                                 <a class="btn-link" href="https://docs.pi-hole.net/" rel="noopener" target="_blank"><i class="fa fa-fw menu-icon fa-question-circle"></i> Documentation</a>
                                 <a class="btn-link" href="https://github.com/pi-hole" rel="noopener" target="_blank"><i class="fa-fw menu-icon fab fa-github"></i> GitHub</a>
                                 <?php if (strlen($pwhash) > 0) {  // Show "Logout" link only when the user has the password protection enabled.?>

@@ -26,7 +26,7 @@ require 'scripts/pi-hole/php/header.php';
             <div class="text-center">
                 <img src="img/logo.svg" alt="Pi-hole logo" class="loginpage-logo">
             </div>
-            <div class="panel-title text-center"><span class="logo-lg" style="font-size: 25px;">Aumm <b>DNS</b></span></div>
+            <div class="panel-title text-center"><span class="logo-lg" style="font-size: 25px;">Pi-<b>hole</b></span></div>
         </div>
         <!-- /.login-logo -->
 
@@ -42,7 +42,9 @@ require 'scripts/pi-hole/php/header.php';
                 <form action="" id="loginform" method="post">
                     <div class="form-group login-options has-feedback<?php if ($wrongpassword) { ?> has-error<?php } ?>">
                         <div class="pwd-field">
-                            <input type="password" id="loginpw" name="pw" class="form-control" placeholder="Password" autocomplete="current-password" autofocus>
+                            <!-- hidden username input field to help password managers to autfill the password -->
+                            <input type="text" id="username" value="pi.hole" autocomplete="username" hidden>
+                            <input type="password" id="loginpw" name="pw" class="form-control" placeholder="Password" spellcheck="false" autocomplete="current-password" autofocus>
                             <span class="fa fa-key form-control-feedback"></span>
                         </div>
                         <div>
@@ -78,10 +80,11 @@ require 'scripts/pi-hole/php/header.php';
                     </div>
                 </div>
             </div>
+            <!-- /.login-card-body -->
         </div>
     </section>
 </div>
 
-<script src="scripts/pi-hole/js/footer.js?v=<?php echo $cacheVer; ?>"></script>
+<script src="<?php echo fileversion('scripts/pi-hole/js/footer.js'); ?>"></script>
 </body>
 </html>

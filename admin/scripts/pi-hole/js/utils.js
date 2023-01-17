@@ -200,12 +200,12 @@ function validateIPv6CIDR(ip) {
 }
 
 function validateMAC(mac) {
-  var macvalidator = new RegExp(/^([\da-fA-F]{2}:){5}([\da-fA-F]{2})$/);
+  var macvalidator = /^([\da-fA-F]{2}:){5}([\da-fA-F]{2})$/;
   return macvalidator.test(mac);
 }
 
 function validateHostname(name) {
-  var namevalidator = new RegExp(/[^<>;"]/);
+  var namevalidator = /[^<>;"]/;
   return namevalidator.test(name);
 }
 
@@ -314,28 +314,28 @@ function addFromQueryLog(domain, list) {
           // Failure
           alNetworkErr.hide();
           alCustomErr.html(response.message);
-          alFailure.fadeIn(100);
+          alFailure.fadeIn(1000);
           setTimeout(function () {
             alertModal.modal("hide");
-          }, 100);
+          }, 10000);
         } else {
           // Success
           alSuccess.children(alDomain).text(domain);
           alSuccess.children(alList).text(listtype);
-          alSuccess.fadeIn(100);
+          alSuccess.fadeIn(1000);
           setTimeout(function () {
             alertModal.modal("hide");
-          }, 100);
+          }, 2000);
         }
       },
       error: function () {
         // Network Error
         alProcessing.hide();
         alNetworkErr.show();
-        alFailure.fadeIn(100);
+        alFailure.fadeIn(1000);
         setTimeout(function () {
           alertModal.modal("hide");
-        }, 100);
+        }, 8000);
       },
     });
   });
