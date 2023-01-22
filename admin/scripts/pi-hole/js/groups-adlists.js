@@ -88,8 +88,6 @@ function format(data) {
     '</td></tr><tr class="dataTables-child"><td>This list was added to Pi-hole&nbsp;&nbsp;</td><td>' +
     utils.datetimeRelative(data.date_added) +
     "&nbsp;(" +
-    utils.datetime(data.date_added, false) +
-    ')</td></tr><tr class="dataTables-child"><td>Database entry was last modified&nbsp;&nbsp;</td><td>' +
     utils.datetimeRelative(data.date_modified) +
     "&nbsp;(" +
     utils.datetime(data.date_modified, false) +
