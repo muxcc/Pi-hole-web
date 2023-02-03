@@ -179,7 +179,7 @@ if ($auth) {
                 <ul class="nav navbar-nav">
                     <li<?php echo !$hostname ? ' class="hidden"' : ''; ?>>
                         <p class="navbar-text">
-                            <?php echo $hostname; ?>
+                            <?php echo $servername; ?>
                         </p>
                     </li>
                     <li class="dropdown user user-menu">

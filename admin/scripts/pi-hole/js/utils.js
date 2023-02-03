@@ -322,10 +322,10 @@ function addFromQueryLog(domain, list) {
           // Success
           alSuccess.children(alDomain).text(domain);
           alSuccess.children(alList).text(listtype);
-          alSuccess.fadeIn(1000);
+          alSuccess.fadeIn(100);
           setTimeout(function () {
             alertModal.modal("hide");
-          }, 2000);
+          }, 500);
         }
       },
       error: function () {

@@ -1,0 +1,13 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+# m h dom mon dow user  command
+00 06   * * *   root  pihole updateGravity >/var/log/pihole/gravity.log || cat /var/log/pihole/gravity.log
+
+# Pi-hole: Flush the log daily at 00:00
+#          The flush script will use logrotate if available
+#          parameter "once": logrotate only once (default is twice)
+#          parameter "quiet": don't print messages
+00 00   * * *   root  pihole flush once quiet
+
