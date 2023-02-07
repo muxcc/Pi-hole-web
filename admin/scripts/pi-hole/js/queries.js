@@ -322,7 +322,7 @@ $(function () {
           if (type === "display") {
             return moment
               .unix(Math.floor(data / 1e6))
-              .format("Y-MM-DD [<br class='hidden-lg'>]HH:mm:ss z");
+              .format("DD-MM-Y [<br class='hidden-lg'>]HH:mm:ss z");
           }
 
           return data;
