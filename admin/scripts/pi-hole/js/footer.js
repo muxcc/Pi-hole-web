@@ -150,7 +150,7 @@ function initCheckboxRadioStyle() {
   var iCheckStyle = $("#iCheckStyle");
   if (iCheckStyle !== null) {
     iCheckStyle.val(chkboxStyle);
-    iCheckStyle.change(function () {
+    iCheckStyle.on("change", function () {
       var themename = $(this).val();
       localStorage.setItem("theme_icheck", themename);
       applyCheckboxRadioStyle(themename);
@@ -160,10 +160,6 @@ function initCheckboxRadioStyle() {
 
 function initCPUtemp() {
   function setCPUtemp(unit) {
-    if (localStorage) {
-      localStorage.setItem("tempunit", tempunit);
-    }
-
     var temperature = parseFloat($("#rawtemp").text());
     var displaytemp = $("#tempdisplay");
     if (!isNaN(temperature)) {
@@ -185,10 +181,30 @@ function initCPUtemp() {
     }
   }
 
-  // Read from local storage, initialize if needed
-  var tempunit = localStorage ? localStorage.getItem("tempunit") : null;
-  if (tempunit === null) {
-    tempunit = "C";
+  function setSetupvarsTempUnit(unit, showmsg = true) {
+    var token = encodeURIComponent($("#token").text());
+    $.getJSON("api.php?setTempUnit=" + unit + "&token=" + token, function (data) {
+      if (showmsg === true) {
+        if ("result" in data && data.result === "success") {
+          utils.showAlert("success", "", "Temperature unit set to " + unit, "");
+        } else {
+          utils.showAlert("error", "", "", "Temperature unit not set");
+        }
+      }
+    });
+  }
+
+  // Read the temperature unit from HTML code
+  var tempunit = $("#tempunit").text();
+  if (!tempunit) {
+    // if no value was set in setupVars.conf, tries to retrieve the old config from localstorage
+    tempunit = localStorage ? localStorage.getItem("tempunit") : null;
+    if (tempunit === null) {
+      tempunit = "C";
+    } else {
+      // if some value was found on localstorage, set the value in setupVars.conf
+      setSetupvarsTempUnit(tempunit, false);
+    }
   }
 
   setCPUtemp(tempunit);
@@ -197,9 +213,12 @@ function initCPUtemp() {
   var tempunitSelector = $("#tempunit-selector");
   if (tempunitSelector !== null) {
     tempunitSelector.val(tempunit);
-    tempunitSelector.change(function () {
+    tempunitSelector.on("change", function () {
       tempunit = $(this).val();
       setCPUtemp(tempunit);
+
+      // store the selected value on setupVars.conf
+      setSetupvarsTempUnit(tempunit);
     });
   }
 }
@@ -256,7 +275,7 @@ $("#pihole-disable-custom").on("click", function (e) {
 });
 
 // Handle Ctrl + Enter button on Login page
-$(document).keypress(function (e) {
+$(document).on("keypress", function (e) {
   if ((e.keyCode === 10 || e.keyCode === 13) && e.ctrlKey && $("#loginpw").is(":focus")) {
     $("#loginform").attr("action", "settings.php");
     $("#loginform").submit();

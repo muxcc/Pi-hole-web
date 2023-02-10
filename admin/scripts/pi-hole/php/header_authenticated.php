@@ -98,7 +98,24 @@ function getTemperature()
         $limit = null;
     }
 
-    return array($celsius, $limit);
+    // Get user-defined temperature limit if set
+    if (isset($setupVars['TEMPERATUREUNIT'])) {
+        switch (strtoupper($setupVars['TEMPERATUREUNIT'])) {
+            case 'F':
+            case 'K':
+                $unit = strtoupper($setupVars['TEMPERATUREUNIT']);
+                break;
+
+            default:
+                $unit = 'C';
+        }
+    } else {
+        // no value is set in setupVars.conf
+        $unit = '';
+    }
+
+    return array($celsius, $limit, $unit);
+
 }
 
 check_cors();
@@ -113,7 +130,7 @@ $token = $_SESSION['token'];
 $maxlifetime = ini_get('session.gc_maxlifetime');
 
 // Get temperature
-list($celsius, $temperaturelimit) = getTemperature();
+list($celsius, $temperaturelimit, $temperatureunit) = getTemperature();
 
 // Get CPU load
 $loaddata = sys_getloadavg();
@@ -216,3 +233,4 @@ if ($auth) {
     <div class="content-wrapper">
         <!-- Main content -->
         <section class="content">
+
